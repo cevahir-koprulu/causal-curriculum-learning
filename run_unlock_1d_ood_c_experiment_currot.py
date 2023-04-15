@@ -2,11 +2,11 @@ import subprocess
 
 filepath = r"./run.py"
 arguments = [
-            ['--train', '--eval', '--eval_type', '0', '--env', 'unlock_1d_ood_c', '--type', 'self_paced', '--learner', 'ppo', '--DIST_TYPE', 'gaussian', '--TARGET_TYPE', 'wide', '--seed', '1'],
-            ['--train', '--eval', '--eval_type', '0', '--env', 'unlock_1d_ood_c', '--type', 'self_paced', '--learner', 'ppo', '--DIST_TYPE', 'gaussian', '--TARGET_TYPE', 'wide', '--seed', '2'],
-            ['--train', '--eval', '--eval_type', '0', '--env', 'unlock_1d_ood_c', '--type', 'self_paced', '--learner', 'ppo', '--DIST_TYPE', 'gaussian', '--TARGET_TYPE', 'wide', '--seed', '3'],
-            ['--train', '--eval', '--eval_type', '0', '--env', 'unlock_1d_ood_c', '--type', 'self_paced', '--learner', 'ppo', '--DIST_TYPE', 'gaussian', '--TARGET_TYPE', 'wide', '--seed', '4'],
-            ['--train', '--eval', '--eval_type', '0', '--env', 'unlock_1d_ood_c', '--type', 'self_paced', '--learner', 'ppo', '--DIST_TYPE', 'gaussian', '--TARGET_TYPE', 'wide', '--seed', '5'],
+            # ['--train', '--eval', '--eval_type', '0', '--env', 'unlock_1d_ood_c', '--type', 'self_paced', '--learner', 'ppo', '--DIST_TYPE', 'gaussian', '--TARGET_TYPE', 'wide', '--seed', '1'],
+            # ['--train', '--eval', '--eval_type', '0', '--env', 'unlock_1d_ood_c', '--type', 'self_paced', '--learner', 'ppo', '--DIST_TYPE', 'gaussian', '--TARGET_TYPE', 'wide', '--seed', '2'],
+            # ['--train', '--eval', '--eval_type', '0', '--env', 'unlock_1d_ood_c', '--type', 'self_paced', '--learner', 'ppo', '--DIST_TYPE', 'gaussian', '--TARGET_TYPE', 'wide', '--seed', '3'],
+            # ['--train', '--eval', '--eval_type', '0', '--env', 'unlock_1d_ood_c', '--type', 'self_paced', '--learner', 'ppo', '--DIST_TYPE', 'gaussian', '--TARGET_TYPE', 'wide', '--seed', '4'],
+            # ['--train', '--eval', '--eval_type', '0', '--env', 'unlock_1d_ood_c', '--type', 'self_paced', '--learner', 'ppo', '--DIST_TYPE', 'gaussian', '--TARGET_TYPE', 'wide', '--seed', '5'],
             # ['--train', '--eval', '--eval_type', '0', '--env', 'unlock_1d_ood_c', '--type', 'self_paced', '--learner', 'ppo', '--DIST_TYPE', 'gaussian', '--TARGET_TYPE', 'wide', '--seed', '6'],
             # ['--train', '--eval', '--eval_type', '0', '--env', 'unlock_1d_ood_c', '--type', 'self_paced', '--learner', 'ppo', '--DIST_TYPE', 'gaussian', '--TARGET_TYPE', 'wide', '--seed', '7'],
             # ['--train', '--eval', '--eval_type', '0', '--env', 'unlock_1d_ood_c', '--type', 'self_paced', '--learner', 'ppo', '--DIST_TYPE', 'gaussian', '--TARGET_TYPE', 'wide', '--seed', '8'],
@@ -24,11 +24,11 @@ arguments = [
             # ['--train', '--eval', '--eval_type', '0', '--env', 'unlock_1d_ood_c', '--type', 'default', '--learner', 'ppo', '--DIST_TYPE', 'gaussian', '--TARGET_TYPE', 'wide', '--seed', '9'],
             # ['--train', '--eval', '--eval_type', '0', '--env', 'unlock_1d_ood_c', '--type', 'default', '--learner', 'ppo', '--DIST_TYPE', 'gaussian', '--TARGET_TYPE', 'wide', '--seed', '10'],
             
-            # ['--train', '--eval', '--eval_type', '0', '--env', 'unlock_1d_ood_c', '--type', 'wasserstein', '--learner', 'ppo', '--TARGET_TYPE', 'wide', '--seed', '1'],
-            # ['--train', '--eval', '--eval_type', '0', '--env', 'unlock_1d_ood_c', '--type', 'wasserstein', '--learner', 'ppo', '--TARGET_TYPE', 'wide', '--seed', '2'],
-            # ['--train', '--eval', '--eval_type', '0', '--env', 'unlock_1d_ood_c', '--type', 'wasserstein', '--learner', 'ppo', '--TARGET_TYPE', 'wide', '--seed', '3'],
-            # ['--train', '--eval', '--eval_type', '0', '--env', 'unlock_1d_ood_c', '--type', 'wasserstein', '--learner', 'ppo', '--TARGET_TYPE', 'wide', '--seed', '4'],
-            # ['--train', '--eval', '--eval_type', '0', '--env', 'unlock_1d_ood_c', '--type', 'wasserstein', '--learner', 'ppo', '--TARGET_TYPE', 'wide', '--seed', '5'],
+            ['--train', '--eval', '--eval_type', '0', '--env', 'unlock_1d_ood_c', '--type', 'wasserstein', '--learner', 'ppo', '--TARGET_TYPE', 'wide', '--seed', '1'],
+            ['--train', '--eval', '--eval_type', '0', '--env', 'unlock_1d_ood_c', '--type', 'wasserstein', '--learner', 'ppo', '--TARGET_TYPE', 'wide', '--seed', '2'],
+            ['--train', '--eval', '--eval_type', '0', '--env', 'unlock_1d_ood_c', '--type', 'wasserstein', '--learner', 'ppo', '--TARGET_TYPE', 'wide', '--seed', '3'],
+            ['--train', '--eval', '--eval_type', '0', '--env', 'unlock_1d_ood_c', '--type', 'wasserstein', '--learner', 'ppo', '--TARGET_TYPE', 'wide', '--seed', '4'],
+            ['--train', '--eval', '--eval_type', '0', '--env', 'unlock_1d_ood_c', '--type', 'wasserstein', '--learner', 'ppo', '--TARGET_TYPE', 'wide', '--seed', '5'],
             # ['--train', '--eval', '--eval_type', '0', '--env', 'unlock_1d_ood_c', '--type', 'wasserstein', '--learner', 'ppo', '--TARGET_TYPE', 'wide', '--seed', '6'],
             # ['--train', '--eval', '--eval_type', '0', '--env', 'unlock_1d_ood_c', '--type', 'wasserstein', '--learner', 'ppo', '--TARGET_TYPE', 'wide', '--seed', '7'],
             # ['--train', '--eval', '--eval_type', '0', '--env', 'unlock_1d_ood_c', '--type', 'wasserstein', '--learner', 'ppo', '--TARGET_TYPE', 'wide', '--seed', '8'],

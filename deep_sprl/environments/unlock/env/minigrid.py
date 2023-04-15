@@ -802,7 +802,9 @@ class MiniGridEnv:
             for i in self.move_mapping:
                 sur_pos = self.agent_pos + np.array(i)
                 sur_cell = self.grid.get(*sur_pos)
-                if sur_cell and sur_cell.type == 'door':
+                # if sur_cell and sur_cell.type == 'door':
+                if sur_cell and sur_cell.type == 'door' and (
+                    sur_cell.is_locked and not sur_cell.is_open):
                     # we will make the door open and make it disappear in state
                     #self.grid.set(*sur_pos, Wall()) 
                     sur_cell.is_locked = False
@@ -810,12 +812,13 @@ class MiniGridEnv:
                     # self.state[sur_pos[1], sur_pos[0], 2] = 0.0 # OLD STATE
                     self.state[sur_pos[0], 2] = 0.0 # NEW STATE
                     self.state[self.width + sur_pos[1], 2] = 0.0 # NEW STATE
-                    reward = 1
+                    # reward = 1 # OLD 
 
                     # if there is no other doors, finish
                     # if np.sum(self.state[:, :, 2]) == 0: # OLD STATE
                     if np.sum(self.state[:, 2]) == 0: # NEW STATE
                         done = True
+                        reward = 1 # NEW
                         break
 
         if next_cell is None or next_cell.can_overlap():

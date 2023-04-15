@@ -86,7 +86,7 @@ class ContextualUnlock(RoomGrid):
         # print(f"Action: {action}")
         # print(f"Reward: {reward}")
         info["success"] = False
-        if reward == 1:
+        if reward > 0 and done:
             info["success"] = True
             # input("!!!!!SUCCESS!!!!!")
         return obs, reward, done, info

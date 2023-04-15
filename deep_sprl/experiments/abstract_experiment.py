@@ -490,8 +490,8 @@ class AbstractExperiment(ABC):
             iteration_log_dir = os.path.join(log_dir, iteration_dir)
             performance_log_dir = os.path.join(iteration_log_dir, f"{performance_files[eval_type]}.npy")
             eval_type_str = performance_files[eval_type][len("performance"):]
-            if not os.path.exists(performance_log_dir):
-            # if True:
+            # if not os.path.exists(performance_log_dir):
+            if True:
                 disc_rewards, eval_contexts, context_p, successful_eps = self.evaluate_learner(
                     path=iteration_log_dir,
                     eval_type=eval_type_str,

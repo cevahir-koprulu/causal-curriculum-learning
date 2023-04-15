@@ -68,8 +68,6 @@ class GoalGAN(AbstractTeacher):
             context = self.context_queue.get()
             self.context2show.append(context.copy())
 
-        if np.any(context<1 or context>8):
-            print(f"context={context}")
         return context
 
     def update(self, context, success):
