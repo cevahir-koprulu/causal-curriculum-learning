@@ -130,11 +130,44 @@ def main():
 
     num_updates_per_iteration = 5
     seeds = [1, 2, 3, 4, 5]
-    env = "unlock_1d_in_wide"
+    # env = "unlock_1d_in_wide"
+    env = "unlock_1d_ood_wide"
 
-    figname_extra = "_expected_success_new"
+    figname_extra = "_expected_success_new_correct"
 
     algorithms = {
+        "unlock_1d_ood_wide": {
+            "DEF": {
+                "algorithm": "default",
+                "label": "Default",
+                "model": "ppo",
+                "color": "magenta",
+            },
+            "SPDL": {
+                "algorithm": "self_paced",
+                "label": "SPDL",
+                "model": "ppo_DELTA=0.05_DIST_TYPE=gaussian_INIT_VAR=None_KL_EPS=0.05",
+                "color": "blue",
+            },
+            "CURROT": {
+                "algorithm": "wasserstein",
+                "label": "CURROT",
+                "model": "ppo_DELTA=0.05_METRIC_EPS=0.5",
+                "color": "green",
+            },
+            "GoalGAN": {
+                "algorithm": "goal_gan",
+                "label": "GoalGAN",
+                "model": "ppo_GG_FIT_RATE=200_GG_NOISE_LEVEL=0.1_GG_P_OLD=0.2",
+                "color": "orange",
+            },
+            "PLR": {
+                "algorithm": "plr",
+                "label": "PLR",
+                "model": "ppo_PLR_BETA=0.45_PLR_REPLAY_RATE=0.85_PLR_RHO=0.15",
+                "color": "red",
+            },
+        },
         "unlock_1d_in_wide": {
             "DEF": {
                 "algorithm": "default",
@@ -294,6 +327,14 @@ def main():
     }
 
     settings = {
+        "unlock_1d_ood_wide":
+            {
+                "num_iters": 300,
+                "steps_per_iter": 2500,
+                "fontsize": 24,
+                "figsize": (10, 5),
+                "bbox_to_anchor": (.5, 1.28),
+            },
         "unlock_1d_in_wide":
             {
                 "num_iters": 300,

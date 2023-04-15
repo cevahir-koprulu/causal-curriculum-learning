@@ -26,17 +26,17 @@ CEM_AUX_TEACHERS = {
     "cauchy": CEMCauchy,
 }
 
-class Unlock1DOoDExperiment(AbstractExperiment):
+class Unlock1DOoDCExperiment(AbstractExperiment):
     TARGET_TYPE = "wide"
-    TARGET_MEAN = np.array([ContextualUnlock.ROOM_SIZE-2])
+    TARGET_MEAN = np.array([ContextualUnlock.ROOM_SIZE-2, ContextualUnlock.ROOM_SIZE-2])
     TARGET_VARIANCES = {
-        "narrow": np.square(np.diag([1e-4])),
-        "wide": np.square(np.diag([1.])),
+        "narrow": np.square(np.diag([1e-4, 1e-4])),
+        "wide": np.square(np.diag([1., 1.])),
     }
 
-    LOWER_CONTEXT_BOUNDS = np.array([1.,])
-    UPPER_CONTEXT_BOUNDS = np.array([ContextualUnlock.ROOM_SIZE-2])
-    EXT_CONTEXT_BOUNDS = np.array([0.])
+    LOWER_CONTEXT_BOUNDS = np.array([1., 1.])
+    UPPER_CONTEXT_BOUNDS = np.array([ContextualUnlock.ROOM_SIZE-2, ContextualUnlock.ROOM_SIZE-2])
+    EXT_CONTEXT_BOUNDS = np.array([0., 0.])
 
     def target_log_likelihood(self, cs):
         # Student's t distribution with DoF 1 is equivalent to a Cauchy distribution
@@ -54,12 +54,12 @@ class Unlock1DOoDExperiment(AbstractExperiment):
         return s if len(s.shape)!=1 else s.reshape(-1, 1)
 
     INIT_VAR = None
-    INITIAL_MEAN = np.array([1.])
-    INITIAL_VARIANCE = np.diag(np.square([.5]))
+    INITIAL_MEAN = np.array([1., 1.])
+    INITIAL_VARIANCE = np.diag(np.square([.5, .5]))
 
     DIST_TYPE = "gaussian"
 
-    STD_LOWER_BOUND = np.array([0.1])
+    STD_LOWER_BOUND = np.array([0.1, 0.1])
     KL_THRESHOLD = 8000.
     KL_EPS = 0.05
     DELTA = 0.05 
@@ -114,9 +114,9 @@ class Unlock1DOoDExperiment(AbstractExperiment):
 
     def create_environment(self, evaluation=False):
         if evaluation:
-            env = gym.make("ContextualUnlock1DOoDTe-v1")
+            env = gym.make("ContextualUnlock1DOoDCTe-v1")
         else:
-            env = gym.make("ContextualUnlock1DOoDTr-v1")
+            env = gym.make("ContextualUnlock1DOoDCTr-v1")
 
         if evaluation or self.curriculum.default():
             teacher = DistributionSampler(self.target_sampler, self.LOWER_CONTEXT_BOUNDS, self.UPPER_CONTEXT_BOUNDS)
@@ -136,7 +136,7 @@ class Unlock1DOoDExperiment(AbstractExperiment):
                              max_size=self.AG_MAX_SIZE[self.learner])
             env = ALPGMMWrapper(env, teacher, self.DISCOUNT_FACTOR, context_visible=True)
         elif self.curriculum.goal_gan():
-            samples = np.random.uniform(self.LOWER_CONTEXT_BOUNDS, self.UPPER_CONTEXT_BOUNDS, size=(1000, 1))
+            samples = np.random.uniform(self.LOWER_CONTEXT_BOUNDS, self.UPPER_CONTEXT_BOUNDS, size=(1000, 2))
             teacher = GoalGAN(self.LOWER_CONTEXT_BOUNDS.copy(), self.UPPER_CONTEXT_BOUNDS.copy(),
                               state_noise_level=self.GG_NOISE_LEVEL[self.learner], success_distance_threshold=0.01,
                               update_size=self.GG_FIT_RATE[self.learner], n_rollouts=2, goid_lb=0.25, goid_ub=0.75,
@@ -214,7 +214,7 @@ class Unlock1DOoDExperiment(AbstractExperiment):
                                       std_lower_bound=self.STD_LOWER_BOUND.copy(), kl_threshold=self.KL_THRESHOLD,
                                       dist_type=self.DIST_TYPE, ext_bounds=self.EXT_CONTEXT_BOUNDS)
         else:
-            init_samples = np.random.uniform(self.LOWER_CONTEXT_BOUNDS, self.UPPER_CONTEXT_BOUNDS, size=(200, 1))
+            init_samples = np.random.uniform(self.LOWER_CONTEXT_BOUNDS, self.UPPER_CONTEXT_BOUNDS, size=(200, 2))
             return CurrOT(bounds, init_samples, self.target_sampler, self.DELTA, self.METRIC_EPS, self.EP_PER_UPDATE,
                           wb_max_reuse=1)
 
@@ -235,7 +235,7 @@ class Unlock1DOoDExperiment(AbstractExperiment):
             raise ValueError(f"Given CEM type, {cem_type}, is not in {list(CEM_AUX_TEACHERS.keys())}.")
 
     def get_env_name(self):
-        return f"unlock_1d_ood_{self.TARGET_TYPE}"
+        return f"unlock_1d_ood_c_{self.TARGET_TYPE}"
 
     def evaluate_learner(self, path, eval_type=""):
         num_context = None

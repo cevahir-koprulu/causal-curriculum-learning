@@ -83,7 +83,7 @@ class RoomGrid(MiniGridEnv):
         self.mission = ''
 
         # call MiniGridEnv
-        super().__init__(width=width, height=height, max_steps=max_steps, seed=seed, stage="train")
+        super().__init__(width=width, height=height, max_steps=max_steps, seed=seed, stage=stage)
 
     def room_from_pos(self, x, y):
         """Get the room a given position maps to"""

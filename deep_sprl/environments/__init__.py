@@ -47,3 +47,17 @@ register(
     reward_threshold=1,
     entry_point='deep_sprl.environments.unlock.contextual_unlock_1d_ood_te:ContextualUnlock1DOoDTe'
 )
+
+register(
+    id='ContextualUnlock1DOoDCTr-v1',
+    max_episode_steps=150,
+    reward_threshold=1,
+    entry_point='deep_sprl.environments.unlock.contextual_unlock_1d_ood_c_tr:ContextualUnlock1DOoDCTr'
+)
+
+register(
+    id='ContextualUnlock1DOoDCTe-v1',
+    max_episode_steps=150,
+    reward_threshold=1,
+    entry_point='deep_sprl.environments.unlock.contextual_unlock_1d_ood_c_te:ContextualUnlock1DOoDCTe'
+)

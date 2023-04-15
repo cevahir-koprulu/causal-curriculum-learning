@@ -13,7 +13,7 @@ def main():
     parser.add_argument("--learner", type=str, default="ppo", choices=["ppo", "sac"])
     parser.add_argument("--env", type=str, default="unlock_1d_in",
                         choices=["point_mass_2d_heavytailed", "lunar_lander_2d_heavytailed",
-                                 "unlock_1d_in", "unlock_1d_ood",])
+                                 "unlock_1d_in", "unlock_1d_ood", "unlock_1d_ood_c"])
     parser.add_argument("--seed", type=int, default=1)
     parser.add_argument("--n_cores", type=int, default=1)
     parser.add_argument('--train', action='store_true')
@@ -43,6 +43,9 @@ def main():
     elif args.env == "unlock_1d_ood":
         from deep_sprl.experiments import Unlock1DOoDExperiment
         exp = Unlock1DOoDExperiment(args.base_log_dir, args.type, args.learner, parameters, args.seed, args.device)
+    elif args.env == "unlock_1d_ood_c":
+        from deep_sprl.experiments import Unlock1DOoDCExperiment
+        exp = Unlock1DOoDCExperiment(args.base_log_dir, args.type, args.learner, parameters, args.seed, args.device)
     else:
         raise RuntimeError("Unknown environment '%s'!" % args.env)
 

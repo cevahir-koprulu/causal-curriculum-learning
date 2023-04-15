@@ -17,11 +17,12 @@ class ContextualUnlock(RoomGrid):
     ROOM_SIZE = 10 # 12
 
     def __init__(self, test_mode='IID', stage="train", max_steps=100, seed=None, context=np.array([ROOM_SIZE//2, ROOM_SIZE//2])):
-        assert test_mode in ['IID', 'OOD-E', 'OOD-S']
+        assert test_mode in ['IID', 'OOD-C', 'OOD-S']
         self.test_mode = test_mode
         self.stage = stage
         self.room_size = self.ROOM_SIZE
         self.context = context
+        self.t = 0
         super().__init__(num_rows=1, num_cols=1, room_size=self.room_size, max_steps=max_steps, seed=seed, stage=stage)
 
     def _gen_grid(self, width, height):
@@ -31,7 +32,7 @@ class ContextualUnlock(RoomGrid):
         self.place_agent(0, 0)
 
         # extrpolation setting
-        if self.test_mode == 'OOD-E':
+        if self.test_mode == 'OOD-C':
             # in training stage, we only have one door
             if self.stage == 'train':
                 door_idx = np.random.choice([0, 1])
@@ -65,12 +66,27 @@ class ContextualUnlock(RoomGrid):
         self.mission = "unlock the door"
 
     def reset(self, seed: Optional[int] = None):
+        self.t = 0
         obs = super().reset(seed=seed)
+        # print(f"\nContext: {self.context}")
+        # print(f"Agent: {obs[:20]}")
+        # print(f"Key  : {obs[20:40]}")
+        # print(f"Doors: {obs[40:60]}")
+        # print(f"Have key: {obs[-2:]}")
         return obs
 
     def step(self, action):
+        self.t += 1
         obs, reward, done, info = super().step(action)
+        # print(f"t: {self.t}")
+        # print(f"Agent: {obs[:20]}")
+        # print(f"Key  : {obs[20:40]}")
+        # print(f"Doors: {obs[40:60]}")
+        # print(f"Have key: {obs[-2:]}")
+        # print(f"Action: {action}")
+        # print(f"Reward: {reward}")
         info["success"] = False
         if reward == 1:
             info["success"] = True
+            # input("!!!!!SUCCESS!!!!!")
         return obs, reward, done, info

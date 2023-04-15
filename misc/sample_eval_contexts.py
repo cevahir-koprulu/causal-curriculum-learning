@@ -5,6 +5,7 @@ import math
 import numpy as np
 from deep_sprl.experiments.unlock_1d_in_experiment import Unlock1DInExperiment
 from deep_sprl.experiments.unlock_1d_ood_experiment import Unlock1DOoDExperiment
+from deep_sprl.experiments.unlock_1d_ood_c_experiment import Unlock1DOoDCExperiment
 from deep_sprl.experiments.point_mass_2d_heavytailed_experiment import PointMass2DHeavyTailedExperiment
 from deep_sprl.experiments.lunar_lander_2d_heavytailed_experiment import LunarLander2DHeavyTailedExperiment
 from pathlib import Path
@@ -72,12 +73,12 @@ def main():
     num_contexts = 100
     eval_context_dir = f"{Path(os.getcwd()).parent}/eval_contexts"
     target_type = "wide"
-    env = f"unlock_1d_ood_{target_type}"
-    all_contexts = True
+    env = f"unlock_1d_in_{target_type}"
+    all_contexts = False
     rare_contexts = False
     rare_contexts_uniform = False
-    all_contexts_hom = False
-    num_per_axis = 20
+    all_contexts_hom = True
+    num_per_axis = 8
     ##################################
 
     if not os.path.exists(eval_context_dir):
@@ -88,6 +89,9 @@ def main():
                                     parameters={"TARGET_TYPE": target_type}, seed=1, device="cpu")
     elif env[:-len(target_type)-1] == "unlock_1d_ood":
         exp = Unlock1DOoDExperiment(base_log_dir="logs", curriculum_name="self_paced", learner_name="ppo",
+                                    parameters={"TARGET_TYPE": target_type}, seed=1, device="cpu")
+    elif env[:-len(target_type)-1] == "unlock_1d_ood_c":
+        exp = Unlock1DOoDCExperiment(base_log_dir="logs", curriculum_name="self_paced", learner_name="ppo",
                                     parameters={"TARGET_TYPE": target_type}, seed=1, device="cpu")
     elif env[:-len(target_type) - 1] == "point_mass_2d_heavytailed":
         exp = PointMass2DHeavyTailedExperiment(base_log_dir="logs", curriculum_name="self_paced", learner_name="ppo",
@@ -126,6 +130,7 @@ def main():
     if all_contexts_hom:
         contexts = sample_contexts_hom(bounds=bounds,
                                        num_per_axis=num_per_axis,)
+        print(contexts)
         np.save(os.path.join(eval_context_dir,f"{env}_eval_hom_contexts"), contexts)
 
 
