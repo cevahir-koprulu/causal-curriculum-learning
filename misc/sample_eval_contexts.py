@@ -59,7 +59,7 @@ def sample_contexts_hom(bounds, num_per_axis):
     upper_bounds = bounds["upper_bounds"]
     dim = lower_bounds.shape[0]
     if dim == 1:
-        contexts = np.linspace(lower_bounds[0], upper_bounds[0], num=num_per_axis)
+        contexts = np.linspace(lower_bounds[0], upper_bounds[0], num=num_per_axis).reshape(-1,1)
     elif dim == 2:
         x, y = np.meshgrid(np.linspace(lower_bounds[0], upper_bounds[0], num=num_per_axis),
                            np.linspace(lower_bounds[1], upper_bounds[1], num=num_per_axis))
@@ -73,7 +73,7 @@ def main():
     num_contexts = 100
     eval_context_dir = f"{Path(os.getcwd()).parent}/eval_contexts"
     target_type = "wide"
-    env = f"unlock_1d_in_{target_type}"
+    env = f"unlock_1d_ood_{target_type}"
     all_contexts = False
     rare_contexts = False
     rare_contexts_uniform = False

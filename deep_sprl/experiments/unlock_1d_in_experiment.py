@@ -235,7 +235,7 @@ class Unlock1DInExperiment(AbstractExperiment):
 
     def evaluate_learner(self, path, eval_type=""):
         num_context = None
-        num_run = 1
+        num_run = 1 if len(eval_type)==0 else 10
 
         model_load_path = os.path.join(path, "model.zip")
         model = self.learner.load_for_evaluation(model_load_path, self.vec_eval_env, self.device)
